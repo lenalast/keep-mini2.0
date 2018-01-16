@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 
-const createResolution = gql`
-  mutation createResolution($name: String!) {
-    createResolution(name: $name) {
+const createTodo = gql`
+  mutation createTodo($name: String!) {
+    createTodo(name: $name) {
       _id
+      name
     }
   }
 `
@@ -13,13 +14,14 @@ const createResolution = gql`
 class CreateList extends Component {
 
   submitForm = () => {
-    console.log(this.name.value)
-    this.props.createResolution({
+    this.props.createTodo({
       variables: {
         name: this.name.value
       }})
       .then(({data}) => {
-      this.props.refetch()})
+        console.log(data)
+      this.props.refetch()
+    })
       .catch(err => {
       console.error(err)})
   }
@@ -34,6 +36,6 @@ class CreateList extends Component {
   }
 }
 
-export default graphql(createResolution, {
-  name: 'createResolution'
+export default graphql(createTodo, {
+  name: "createTodo"
 })(CreateList)

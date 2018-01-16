@@ -5,28 +5,27 @@ import CreateList from './CreateList'
 import '../sass/main'
 
 const App = ({ data }) => {
-  if(data.loading) return null
-  
+console.log(data)
   return (
-  <div>
-    <h1>{data.hi}</h1>
-    <CreateList refetch={data.refetch}/>
-    <ul>
-      {
-        data.resolutions.map(resolution => (
-          <li key={resolution._id}>
-            {resolution.name}
+    <div>
+      <h1>Keep-Mini</h1>
+      <CreateList refetch={data.refetch} />
+      <ul>
+
+        {/* {
+        data.todos.map(todo => (
+          <li key={todo._id}>
+            {todo.name}
           </li>
-        ))}
-    </ul>
-  </div>
+        ))} */}
+      </ul>
+    </div>
   )
 }
 
-const hiQuery = gql`
-{
-  hi
-  resolutions {
+const todosQuery = gql`
+query todos {
+  todos {
     name
     _id
   }
@@ -34,5 +33,5 @@ const hiQuery = gql`
 `
 
 export default graphql(
-  hiQuery
+  todosQuery
 )(App)
