@@ -12,14 +12,13 @@ const createTodo = gql`
 `
 
 class CreateList extends Component {
-
   submitForm = () => {
     this.props.createTodo({
       variables: {
         name: this.name.value
       }})
       .then(({data}) => {
-        console.log(data)
+        console.log('Res data: ', data)
       this.props.refetch()
     })
       .catch(err => {

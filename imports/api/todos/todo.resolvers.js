@@ -17,7 +17,7 @@ export default {
 
   Mutation: {
     createTodo(obj, args, context) {
-      const _id = Todos.insert({ args })
+      const _id = Todos.insert({ ...args })
       return Todos.findOne({ _id })
     }
   }

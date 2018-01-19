@@ -5,26 +5,26 @@ import CreateList from './CreateList'
 import '../sass/main'
 
 const App = ({ data }) => {
-console.log(data)
+  if (data.loading) return null;
   return (
     <div>
       <h1>Keep-Mini</h1>
       <CreateList refetch={data.refetch} />
       <ul>
-
-        {/* {
-        data.todos.map(todo => (
-          <li key={todo._id}>
+        {
+          data.todos.map(todo => (
+            <li key={todo._id}>
             {todo.name}
           </li>
-        ))} */}
+        ))
+      }  
       </ul>
     </div>
   )
 }
 
 const todosQuery = gql`
-query todos {
+{
   todos {
     name
     _id
