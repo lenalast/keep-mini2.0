@@ -21,8 +21,8 @@ export default {
     },
     updateTodo(obj, { _id, name}, context) {
       console.log('args:', _id, name)
-      const id = Todos.update({ _id }, { name })
-      return Todos.findOne({ id })
+      Todos.update({ _id }, { name })
+      return Todos.findOne({ _id })
     }
   }
 }
