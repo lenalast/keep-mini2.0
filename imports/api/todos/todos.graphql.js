@@ -13,6 +13,8 @@ type Query {
 
 type Mutation {
   createTodo(name: String!): Todo
+  deleteTodo(_id: String!): Todo
+  updateTodo(_id: String! name: String!): Todo
 }
 `
 

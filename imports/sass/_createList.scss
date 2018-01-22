@@ -1,0 +1,16 @@
+.create-list-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 32px;
+  .create-input {
+    width: 400px;
+    height: 42px;    
+    border-radius: 2px;
+    box-shadow: rgb(160, 160, 160) 0px 2px 2px 0px;
+    font-family: 'Roboto Slab', serif; //Need to download font
+    font-size: 14px;
+    padding-left: 16px;
+  }
+}
+

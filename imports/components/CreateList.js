@@ -27,9 +27,9 @@ class CreateList extends Component {
 
   render() {
     return(
-      <div>
-        <input type="text" ref={(input) => this.name = input}/>
-        <button onClick={this.submitForm}>Submit</button>
+      <div className="create-list-wrapper">
+        <input className="create-input" type="text" placeholder="Gör en anteckning ..." ref={(input) => this.name = input}/>
+        {/* <button onClick={this.submitForm}>Submit</button>         */}
       </div>
     ) 
   }

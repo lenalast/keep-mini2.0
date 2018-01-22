@@ -1,10 +1,5 @@
 import Todos from './todos.collection'
 
-const todo = {
-  _id: "asd",
-  name: "asdddd"
-}
-
 export default {
   Query: {
     todos: () => {
@@ -19,6 +14,15 @@ export default {
     createTodo(obj, args, context) {
       const _id = Todos.insert({ ...args })
       return Todos.findOne({ _id })
+    },
+    deleteTodo(obj, args, context) {
+      const _id = Todos.remove({ ...args })
+      return console.log('Removed todo')
+    },
+    updateTodo(obj, {_id, name}, context) {
+      console.log('args:', _id, name)
+      const id = Todos.update({ _id }, { name })
+      return console.log('Edit todo', id)
     }
   }
 }
