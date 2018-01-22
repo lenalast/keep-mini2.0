@@ -3,7 +3,7 @@ import { makeExecutableSchema } from 'graphql-tools'
 import TodosResolvers from '../../api/todos/todo.resolvers'
 import TodoSchema from '../../api/todos/todos.graphql.js'
 import merge from 'lodash/merge'
-//Just a comment
+//Just a comment..
 
 const typeDefs = [
 TodoSchema

@@ -19,10 +19,10 @@ export default {
       const _id = Todos.remove({ ...args })
       return console.log('Removed todo')
     },
-    updateTodo(obj, {_id, name}, context) {
+    updateTodo(obj, { _id, name}, context) {
       console.log('args:', _id, name)
       const id = Todos.update({ _id }, { name })
-      return console.log('Edit todo', id)
+      return Todos.findOne({ id })
     }
   }
 }
