@@ -4,7 +4,7 @@ import { graphql } from 'react-apollo'
 import styled from 'styled-components';
 
 const Icon = styled.span`
-  color: #a0a0a0;
+  color: #747474;
   font-size: 20px;
 `
 const TodoInput = styled.input`
@@ -12,6 +12,7 @@ const TodoInput = styled.input`
   font-size: 13px;
   padding: 8px 0;
   margin-left: 8px;
+  background-color: transparent;
 `
 
 class CreateTodoForm extends React.Component {

@@ -4,6 +4,7 @@ import { graphql, compose } from 'react-apollo'
 import styled from 'styled-components';
 import CreateTodoListForm from './CreateTodoListForm'
 import CreateTodoForm from './CreateTodoForm'
+import ColorPicker from './ColorPicker'
 
 const TodoListsGrid = styled.div`
   display: flex;
@@ -18,7 +19,7 @@ const TodoList = styled.div`
   padding: 16px 0 0 0;
   margin: 16px 8px;
   width: 240px; 
-  background-color: #fff;
+  background-color: ${({ bgColor }) => bgColor ? bgColor : '#fff'};
   transition: all 300ms;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
               0 3px 1px -2px rgba(0,0,0,0.2), 
@@ -35,6 +36,7 @@ const ListName = styled.input`
   margin-bottom: 8px;
   padding: 0 16px;
   font-size: 17px;
+  background-color: transparent;
 `
 
 const Todo = styled.div`
@@ -56,6 +58,7 @@ const CheckBox = styled.input.attrs({
 const TodoName = styled.input`
   outline: none;
   border: none;
+  background-color: transparent;
   font-family: Roboto, sans-serif;
   font-size: 14px;
   text-decoration: ${props => props.done ? 'line-through' : 'none' };
@@ -63,15 +66,15 @@ const TodoName = styled.input`
 `
 
 const TodoListFooter = styled.div`
-  border-top: 1px solid #dedede;
-  border-bottom: 1px solid #dedede;
+  border-top: 1px solid #747474;
+  border-bottom: 1px solid #747474;
   margin-top: 8px;
   padding: 0 16px 0 20px;
 `
 
 const DeleteIcon = styled.div`
   display: none;
-  color: #747474;
+  opacity: 0.5;
   width: 20px;
   height: 20px;
   line-height: 20px;
@@ -79,26 +82,16 @@ const DeleteIcon = styled.div`
   font-size: 18px;
   float: right; 
   cursor: pointer;
-  transition: color 200ms;
+  transition: opacity 200ms;
   &:hover {
-    color: #000;
+    opacity: 1;
   }
 `
 
 const TrashIcon = styled.i`
-  color: #747474;
+  opacity: 0.5;
   float: right;
   padding: 12px;
-  transition: color 200ms;
-  cursor: pointer;
-  &:hover {
-    color: #000;
-  }
-`
-
-const ColorIcon = styled.img`
-  padding: 12px;
-  opacity: 0.5;
   cursor: pointer;
   transition: opacity 200ms;
   &:hover {
@@ -107,6 +100,9 @@ const ColorIcon = styled.img`
 `
 
 class TodoListsPage extends Component {
+  state = {
+    color: '#ffffff',
+  }
 
   deleteTodoList = (_id) => {
     this.props.deleteTodoList({
@@ -169,6 +165,7 @@ class TodoListsPage extends Component {
 
   render() {
     const { todoLists = [], loading } = this.props;
+    const { color } = this.state
 
     return (
       <div>
@@ -179,7 +176,7 @@ class TodoListsPage extends Component {
         <TodoListsGrid>
           {
             todoLists.map(list =>
-              <TodoList key={list._id}>
+              <TodoList key={list._id} bgColor={color}>
                 <ListName
                   defaultValue={list.name}
                   onBlur={(e) => this.updateListName(e, list._id)}
@@ -205,7 +202,9 @@ class TodoListsPage extends Component {
                 <TodoListFooter>
                   <CreateTodoForm todoListId={list._id} />
                 </TodoListFooter>
-                <ColorIcon src="/color_palette_icon.svg" alt="color pallete icon"/>
+                
+                <ColorPicker onSelectColor={(color) => this.setState({ color })}/>
+
                 <TrashIcon className="fa fa-trash" onClick={() => this.deleteTodoList(list._id)} />
               </TodoList>
             )
