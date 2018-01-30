@@ -1,9 +1,12 @@
+import '../sass/main'
 import React from 'react'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
-import CreateList from './CreateList'
+
 import Header from './Header'
-import '../sass/main'
+import AccessPage from "./AccessPage";
+import TodoListsPage from "./TodoListsPage";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 const deleteTodo = gql`
   mutation deleteTodo($id: String!) {
@@ -14,45 +17,38 @@ const deleteTodo = gql`
 `
 
 const App = ({ data }) => {
-  if (data.loading) return null;
 
-  removeTodo = (todoId) => {
+  const removeTodo = (todoId) => {
     this.props.deleteTodo({
       variables: {
         _id: todoId
-      }})
-      .then(({data}) => {
-        console.log('Res data: ', data)
-      this.props.refetch()
+      }
     })
+      .then(({ data }) => {
+        console.log('Res data: ', data)
+        this.props.refetch()
+      })
       .catch(err => {
-      console.error(err)})
+        console.error(err)
+      })
   }
 
   return (
     <div>
-      <Header />
-      <CreateList refetch={data.refetch} />
-      <ul className="list-wrapper">
-        {
-          data.todos.map(todo => (
-            <p key={todo._id}>
-              {todo.name}
-            </p>
-          ))
-        }
-      </ul>
+      <Header/>
+      <Route exact path="/" component={Meteor.userId() ? TodoListsPage : AccessPage}/>
     </div>
   )
+
 }
 
 const todosQuery = gql`
-{
-  todos {
-    name
-    _id
+  {
+    todos {
+      name
+      _id
+    }
   }
-}
 `
 
 export default graphql(

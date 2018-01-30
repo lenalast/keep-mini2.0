@@ -1,16 +1,22 @@
 import { createApolloServer } from 'meteor/apollo'
 import { makeExecutableSchema } from 'graphql-tools'
-import TodosResolvers from '../../api/todos/todo.resolvers'
-import TodoSchema from '../../api/todos/todos.graphql.js'
 import merge from 'lodash/merge'
-//Just a comment..
+
+import TodoListSchema from '../../api/todolists/TodoList.graphql.js'
+import TodoListResolvers from '../../api/todolists/resolvers'
+import TodoSchema from '../../api/todos/Todo.graphql.js';
+import TodoResolvers from '../../api/todos/resolvers';
+
+// hmmdd
 
 const typeDefs = [
-TodoSchema
+  TodoListSchema,
+  TodoSchema,
 ]
 
 const resolvers = merge(
-  TodosResolvers
+  TodoListResolvers,
+  TodoResolvers,
 )
 
 const schema = makeExecutableSchema({
