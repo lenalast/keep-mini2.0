@@ -96,6 +96,16 @@ const TrashIcon = styled.i`
   }
 `
 
+const ColorIcon = styled.img`
+  padding: 12px;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 200ms;
+  &:hover {
+    opacity: 1;
+  }
+`
+
 class TodoListsPage extends Component {
 
   deleteTodoList = (_id) => {
@@ -195,6 +205,7 @@ class TodoListsPage extends Component {
                 <TodoListFooter>
                   <CreateTodoForm todoListId={list._id} />
                 </TodoListFooter>
+                <ColorIcon src="/color_palette_icon.svg" alt="color pallete icon"/>
                 <TrashIcon className="fa fa-trash" onClick={() => this.deleteTodoList(list._id)} />
               </TodoList>
             )
