@@ -5,7 +5,7 @@ export default gql`
 type TodoList {
   _id: String!
   name: String!
-#  owner: String! 
+  userId: String 
   todos: [Todo]
 }
 
