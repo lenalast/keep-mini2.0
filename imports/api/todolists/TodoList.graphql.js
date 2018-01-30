@@ -7,6 +7,7 @@ type TodoList {
   name: String!
   userId: String 
   todos: [Todo]
+  color: String
 }
 
 type Query {
@@ -18,5 +19,6 @@ type Mutation {
   createTodoList(name: String!): TodoList
   deleteTodoList(_id: String!): Boolean
   updateTodoList(_id: String! name: String!): TodoList
+  updateTodoListColor(_id: String! color: String!): TodoList
 }
 `

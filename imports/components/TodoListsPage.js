@@ -10,7 +10,7 @@ const TodoListsGrid = styled.div`
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
-  max-width: 800px; // fits 3 lists
+  max-width: 948px; // fits 3 lists
   margin: 0 auto;
   padding: 32px;
 `
@@ -18,7 +18,7 @@ const TodoListsGrid = styled.div`
 const TodoList = styled.div`
   padding: 16px 0 0 0;
   margin: 16px 8px;
-  width: 240px; 
+  width: 300px; 
   background-color: ${({ bgColor }) => bgColor ? bgColor : '#fff'};
   transition: all 300ms;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
@@ -32,18 +32,21 @@ const TodoList = styled.div`
 `
 
 const ListName = styled.input`
-  font-family: Roboto, sans-serif;
   margin-bottom: 8px;
   padding: 0 16px;
-  font-size: 17px;
   background-color: transparent;
+  font-family: Roboto, sans-serif;
+  font-size: 17px;
 `
 
 const Todo = styled.div`
+  display: flex;
+  align-items: center;
+  height: 26px;
   font-family: Roboto, sans-serif; // google uses Roboto Slab 
   line-height: 19px;
   font-size: 14px;
-  padding: 8px 16px 0 16px;
+  padding: 0 16px;
   &:hover .fa {
     display: inline-block;
   }
@@ -56,13 +59,15 @@ const CheckBox = styled.input.attrs({
 `
 
 const TodoName = styled.input`
+  display: block;
+  width: 100%;
   outline: none;
   border: none;
   background-color: transparent;
   font-family: Roboto, sans-serif;
   font-size: 14px;
-  text-decoration: ${props => props.done ? 'line-through' : 'none' };
-  opacity: ${props => props.done ? '0.7' : '1' };
+  text-decoration: ${props => props.done ? 'line-through' : 'none'};
+  opacity: ${props => props.done ? '0.7' : '1'};
 `
 
 const TodoListFooter = styled.div`
@@ -79,8 +84,7 @@ const DeleteIcon = styled.div`
   height: 20px;
   line-height: 20px;
   text-align: center;
-  font-size: 18px;
-  float: right; 
+  font-size: 18px; 
   cursor: pointer;
   transition: opacity 200ms;
   &:hover {
@@ -100,10 +104,6 @@ const TrashIcon = styled.i`
 `
 
 class TodoListsPage extends Component {
-  state = {
-    color: '#ffffff',
-  }
-
   deleteTodoList = (_id) => {
     this.props.deleteTodoList({
       variables: {
@@ -149,7 +149,7 @@ class TodoListsPage extends Component {
   }
 
   handleUpdateTodoNameOnEnterKey = (e) => {
-    if(e.keyCode == 13){
+    if (e.keyCode == 13) {
       e.target.blur()
     }
   }
@@ -163,9 +163,18 @@ class TodoListsPage extends Component {
     }).catch(err => console.error(err))
   }
 
+  updateTodoListColor = (_id, color) => {
+    this.props.updateTodoListColor({
+      variables: {
+        _id,
+        color
+      }
+    })
+      .catch(err => console.error(err))
+  }
+
   render() {
     const { todoLists = [], loading } = this.props;
-    const { color } = this.state
 
     return (
       <div>
@@ -176,7 +185,7 @@ class TodoListsPage extends Component {
         <TodoListsGrid>
           {
             todoLists.map(list =>
-              <TodoList key={list._id} bgColor={color}>
+              <TodoList key={list._id} bgColor={list.color}>
                 <ListName
                   defaultValue={list.name}
                   onBlur={(e) => this.updateListName(e, list._id)}
@@ -185,9 +194,9 @@ class TodoListsPage extends Component {
                 {
                   list.todos.map(todo =>
                     <Todo key={todo._id}>
-                      <CheckBox 
-                      checked={todo.done}
-                      onChange={() => this.toggleTodoDone(todo._id, todo.done)}
+                      <CheckBox
+                        checked={todo.done}
+                        onChange={() => this.toggleTodoDone(todo._id, todo.done)}
                       />
                       <TodoName
                         done={todo.done}
@@ -202,8 +211,8 @@ class TodoListsPage extends Component {
                 <TodoListFooter>
                   <CreateTodoForm todoListId={list._id} />
                 </TodoListFooter>
-                
-                <ColorPicker onSelectColor={(color) => this.setState({ color })}/>
+
+                <ColorPicker onSelectColor={(color) => this.updateTodoListColor(list._id, color)} />
 
                 <TrashIcon className="fa fa-trash" onClick={() => this.deleteTodoList(list._id)} />
               </TodoList>
@@ -220,6 +229,7 @@ const todoListsQuery = gql`
     todoLists {
       _id
       name
+      color
       todos {
         _id
         name
@@ -243,6 +253,14 @@ const deleteTodo = gql`
 const updateTodoList = gql`
  mutation updateTodoList($_id: String! $name: String!) {
   updateTodoList(_id: $_id name: $name){
+    name
+  }
+ }
+`
+
+const updateTodoListColor = gql`
+ mutation updateTodoListColor($_id: String! $color: String!) {
+  updateTodoListColor(_id: $_id color: $color){
     name
   }
  }
@@ -290,18 +308,25 @@ export default compose(
         refetchQueries: ["TodoLists"]
       }
     }),
-    graphql(
-      updateTodo, {
-        name: "updateTodo",
-        options: {
-          refetchQueries: ["TodoLists"]
-        }
-      }),
-      graphql(
-        updateTodoStatus, {
-          name: "updateTodoStatus",
-          options: {
-            refetchQueries: ["TodoLists"]
-          }
-        })
+  graphql(
+    updateTodoListColor, {
+      name: "updateTodoListColor",
+      options: {
+        refetchQueries: ["TodoLists"]
+      }
+    }),
+  graphql(
+    updateTodo, {
+      name: "updateTodo",
+      options: {
+        refetchQueries: ["TodoLists"]
+      }
+    }),
+  graphql(
+    updateTodoStatus, {
+      name: "updateTodoStatus",
+      options: {
+        refetchQueries: ["TodoLists"]
+      }
+    })
 )(TodoListsPage)

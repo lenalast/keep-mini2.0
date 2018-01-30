@@ -25,7 +25,7 @@ export default {
       if(!userId){
         return null
       }
-      const _id = TodoLists.insert({ ...args, userId })
+      const _id = TodoLists.insert({ ...args, userId, color: "#ffffff" })
       return TodoLists.findOne({ _id })
     },
     deleteTodoList(obj, { _id }, { userId }) {
@@ -42,6 +42,14 @@ export default {
       }
       console.log('args:', _id, name)
       TodoLists.update({ _id }, { '$set': { name } })
+      return TodoLists.findOne({ _id })
+    },
+    updateTodoListColor(obj, { _id, color }, { userId }) {
+      if(!userId){
+        return null
+      }
+      console.log('args:', _id, color)
+      TodoLists.update({ _id }, { '$set': { color } })
       return TodoLists.findOne({ _id })
     },
   }
