@@ -41,7 +41,7 @@ export default {
         return null
       }
       console.log('args:', _id, name)
-      TodoLists.update({ _id }, { name })
+      TodoLists.update({ _id }, { '$set': { name } })
       return TodoLists.findOne({ _id })
     },
   }
