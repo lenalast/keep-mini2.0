@@ -58,7 +58,8 @@ const TodoName = styled.input`
   border: none;
   font-family: Roboto, sans-serif;
   font-size: 14px;
-  text-decoration: ${props => props.done ? 'line-through' : 'none' }
+  text-decoration: ${props => props.done ? 'line-through' : 'none' };
+  opacity: ${props => props.done ? '0.7' : '1' };
 `
 
 const TodoListFooter = styled.div`
