@@ -21,7 +21,7 @@ export default {
       if(!userId){
         return null
       }
-      const _id = Todos.insert({ ...args })
+      const _id = Todos.insert({ ...args, done: false })
       console.log(Todos.findOne({ _id }));
       return Todos.findOne({ _id })
     },
@@ -37,7 +37,15 @@ export default {
         return null
       }
       console.log('args:', _id, name)
-      Todos.update({ _id }, { name })
+      Todos.update({ _id }, { '$set': { name } })
+      return Todos.findOne({ _id })
+    },
+    updateTodoStatus(obj, { _id, done}, { userId }) {
+      if(!userId){
+        return null
+      }
+      console.log('args:', _id, done)
+      Todos.update({ _id }, { '$set': { done } })
       return Todos.findOne({ _id })
     },
   }
