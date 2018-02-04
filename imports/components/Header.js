@@ -2,6 +2,7 @@ import React from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag';
 import styled from 'styled-components';
+import { Avatar } from "./styled/Avatar.styled";
 
 
 const LogOutButton = styled.div`
@@ -10,14 +11,6 @@ const LogOutButton = styled.div`
    &:hover {
     color: #e8e8e8; 
   }
-`
-const Avatar = styled.img`
-  width: 30px;
-  height: 30px;
-  margin-left: 16px;
-  padding: 6px;
-  border-radius: 50%;
-  background-color: #fff;
 `
 
 const UserMenu = styled.div`

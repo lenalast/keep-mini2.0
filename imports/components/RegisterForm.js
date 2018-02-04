@@ -1,15 +1,22 @@
 import React from 'react'
+import { Avatar } from "./styled/Avatar.styled";
 
 class RegisterForm extends React.Component {
+
+  state = {
+    selectedAvatar: '/avatar1.svg'
+  }
+
   registerUser = (e) => {
     e.preventDefault()
-    console.log('register user', Accounts)
+
+    const { selectedAvatar } = this.state;
 
     Accounts.createUser({
         email: this.email.value,
         password: this.password.value,
         profile: {
-          avatar: '/avatar1.svg'
+          avatar: selectedAvatar
         }
       },
       error => error && console.error("register user", error)
@@ -32,6 +39,9 @@ class RegisterForm extends React.Component {
           name="password"
           placeholder="password"
         />
+        <Avatar selected={this.state.selectedAvatar === "/avatar1.svg"} src="/avatar1.svg" onClick={() => this.setState({selectedAvatar: '/avatar1.svg'})} alt=""/>
+        <Avatar selected={this.state.selectedAvatar === "/avatar2.svg"} src="/avatar2.svg" onClick={() => this.setState({selectedAvatar: '/avatar2.svg'})} alt=""/>
+        <Avatar selected={this.state.selectedAvatar === "/avatar3.svg"} src="/avatar3.svg" onClick={() => this.setState({selectedAvatar: '/avatar3.svg'})} alt=""/>
         <button type="submit">Register</button>
       </form>
     )
