@@ -8,6 +8,9 @@ class RegisterForm extends React.Component {
     Accounts.createUser({
         email: this.email.value,
         password: this.password.value,
+        profile: {
+          avatar: '/avatar1.svg'
+        }
       },
       error => error && console.error("register user", error)
     )
