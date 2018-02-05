@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const Form = styled.form`
-  margin-top: 40px;
-  padding-bottom: 40px;
+  margin-top: 32px;
+  padding-bottom: 24px;
 `
 export const Title = styled.h1`
   font-family: "Roboto Slab", sans-serif;

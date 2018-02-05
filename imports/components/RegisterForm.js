@@ -22,10 +22,11 @@ const AvatarWrapper = styled.div`
    justify-content: space-between;
    max-width: 416px;
    margin-top: 16px;
+   margin-bottom: 50px;
 `
 
 const Message = styled.div`
-  //display: none;
+  font-family: "Roboto Slab", sans-serif;
   color: green;
 `
 
@@ -50,6 +51,8 @@ class RegisterForm extends React.Component {
       },
       error => error && console.error("register user", error)
     )
+    this.email.value = ''
+    this.password.value = ''
     this.setState({registerMessage: 'Welcome to Keep-mini! Log in below and start making todos'})
   }
 
@@ -71,11 +74,11 @@ class RegisterForm extends React.Component {
         />
         <AvatarWrapper>
           <Avatar selected={this.state.selectedAvatar === "/avatar1.svg"} src="/avatar1.svg"
-                  onClick={() => this.setState({ selectedAvatar: '/avatar1.svg' })} alt=""/>
+                  onClick={() => this.setState({ selectedAvatar: '/avatar1.svg' })} alt="Avatar"/>
           <Avatar selected={this.state.selectedAvatar === "/avatar2.svg"} src="/avatar2.svg"
-                  onClick={() => this.setState({ selectedAvatar: '/avatar2.svg' })} alt=""/>
+                  onClick={() => this.setState({ selectedAvatar: '/avatar2.svg' })} alt="Avatar"/>
           <Avatar selected={this.state.selectedAvatar === "/avatar3.svg"} src="/avatar3.svg"
-                  onClick={() => this.setState({ selectedAvatar: '/avatar3.svg' })} alt=""/>
+                  onClick={() => this.setState({ selectedAvatar: '/avatar3.svg' })} alt="Avatar"/>
         <RegisterButton type="submit">Register</RegisterButton>
         </AvatarWrapper>
         <Message>{this.state.registerMessage}</Message>
