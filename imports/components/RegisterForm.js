@@ -1,10 +1,39 @@
 import React from 'react'
+import styled from 'styled-components';
 import { Avatar } from "./styled/Avatar.styled";
+import { Form, Title, Input } from "./styled/Form.styled";
+
+const RegisterButton = styled.button`
+   border: none;
+   outline: none;
+   width: 80px;
+   padding: 8px;
+   font-family: "Roboto Slab", sans-serif;
+   font-size: 14px;
+   background-color: #5092FB;
+   color: #fff;
+   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
+              0 3px 1px -2px rgba(0,0,0,0.2), 
+              0 1px 5px 0 rgba(0,0,0,0.12);
+`
+
+const AvatarWrapper = styled.div`
+   display: flex;
+   justify-content: space-between;
+   max-width: 416px;
+   margin-top: 16px;
+`
+
+const Message = styled.div`
+  //display: none;
+  color: green;
+`
 
 class RegisterForm extends React.Component {
 
   state = {
-    selectedAvatar: '/avatar1.svg'
+    selectedAvatar: '/avatar1.svg',
+    registerMessage: ''
   }
 
   registerUser = (e) => {
@@ -21,29 +50,36 @@ class RegisterForm extends React.Component {
       },
       error => error && console.error("register user", error)
     )
+    this.setState({registerMessage: 'Welcome to Keep-mini! Log in below and start making todos'})
   }
 
   render() {
     return (
-      <form onSubmit={this.registerUser}>
-        <h1>Register account</h1>
-        <input
-          ref={input => this.email = input}
+      <Form onSubmit={this.registerUser}>
+        <Title>Register account</Title>
+        <Input
+          innerRef={input => this.email = input}
           type="email"
           name="email"
           placeholder="email"
         />
-        <input
-          ref={input => this.password = input}
+        <Input
+          innerRef={input => this.password = input}
           type="password"
           name="password"
           placeholder="password"
         />
-        <Avatar selected={this.state.selectedAvatar === "/avatar1.svg"} src="/avatar1.svg" onClick={() => this.setState({selectedAvatar: '/avatar1.svg'})} alt=""/>
-        <Avatar selected={this.state.selectedAvatar === "/avatar2.svg"} src="/avatar2.svg" onClick={() => this.setState({selectedAvatar: '/avatar2.svg'})} alt=""/>
-        <Avatar selected={this.state.selectedAvatar === "/avatar3.svg"} src="/avatar3.svg" onClick={() => this.setState({selectedAvatar: '/avatar3.svg'})} alt=""/>
-        <button type="submit">Register</button>
-      </form>
+        <AvatarWrapper>
+          <Avatar selected={this.state.selectedAvatar === "/avatar1.svg"} src="/avatar1.svg"
+                  onClick={() => this.setState({ selectedAvatar: '/avatar1.svg' })} alt=""/>
+          <Avatar selected={this.state.selectedAvatar === "/avatar2.svg"} src="/avatar2.svg"
+                  onClick={() => this.setState({ selectedAvatar: '/avatar2.svg' })} alt=""/>
+          <Avatar selected={this.state.selectedAvatar === "/avatar3.svg"} src="/avatar3.svg"
+                  onClick={() => this.setState({ selectedAvatar: '/avatar3.svg' })} alt=""/>
+        <RegisterButton type="submit">Register</RegisterButton>
+        </AvatarWrapper>
+        <Message>{this.state.registerMessage}</Message>
+      </Form>
     )
   }
 }

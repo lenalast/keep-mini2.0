@@ -1,4 +1,18 @@
 import React from 'react'
+import styled from 'styled-components';
+import { Form, Title, Input }  from './styled/Form.styled';
+
+const LogInButton = styled.button`
+   border: none;
+   outline: none;
+   width: 80px;
+   padding: 8px;
+   font-family: "Roboto Slab", sans-serif;
+   font-size: 14px;
+   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
+              0 3px 1px -2px rgba(0,0,0,0.2), 
+              0 1px 5px 0 rgba(0,0,0,0.12);
+`
 
 class LoginForm extends React.Component {
   signInUser = (e) => {
@@ -9,7 +23,7 @@ class LoginForm extends React.Component {
       this.email.value,
       this.password.value,
       error => {
-        if (error) {
+        if ( error ) {
           console.error(error)
         }
         else {
@@ -17,28 +31,26 @@ class LoginForm extends React.Component {
         }
       }
     )
-
-
   }
 
   render() {
     return (
-      <form onSubmit={this.signInUser}>
-        <h1>Log in</h1>
-        <input
-          ref={input => this.email = input}
+      <Form onSubmit={this.signInUser}>
+        <Title>Log in</Title>
+        <Input
+          innerRef={input => this.email = input}
           type="email"
           name="email"
           placeholder="email"
         />
-        <input
-          ref={input => this.password = input}
+        <Input
+          innerRef={input => this.password = input}
           type="password"
           name="password"
           placeholder="password"
         />
-        <button type="submit">Log in</button>
-      </form>
+        <LogInButton type="submit">Log in</LogInButton>
+      </Form>
     )
   }
 }
