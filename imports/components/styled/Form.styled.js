@@ -4,9 +4,11 @@ export const Form = styled.form`
   margin-top: 32px;
   padding-bottom: 24px;
 `
-export const Title = styled.h1`
-  font-family: "Roboto Slab", sans-serif;
+export const Title = styled.div`
   margin-bottom: 16px;
+  font-family: "Roboto Slab", sans-serif;
+  font-size: 20px;
+  
 `
 export const Input = styled.input`
   padding: 8px;

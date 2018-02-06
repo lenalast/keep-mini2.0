@@ -29,18 +29,32 @@ const Message = styled.div`
   font-family: "Roboto Slab", sans-serif;
   color: green;
 `
+const ErrorMessage = styled.div`
+  font-family: "Roboto Slab", sans-serif;
+  font-size: 12px;
+  color: red;
+`
 
 class RegisterForm extends React.Component {
 
   state = {
     selectedAvatar: '/avatar1.svg',
-    registerMessage: ''
+    registerMessage: '',
+    emailMessage: '',
+    passwordMessage: '',
   }
 
   registerUser = (e) => {
     e.preventDefault()
 
     const { selectedAvatar } = this.state;
+
+    if(this.email.value === ''){
+      return this.setState({emailMessage: 'Please, fill in your email'})
+    }
+    if(this.password.value === '') {
+      return this.setState({ passwordMessage: 'Please, fill in your password' })
+    }
 
     Accounts.createUser({
         email: this.email.value,
@@ -53,10 +67,12 @@ class RegisterForm extends React.Component {
     )
     this.email.value = ''
     this.password.value = ''
-    this.setState({registerMessage: 'Welcome to Keep-mini! Log in below and start making todos'})
+    this.setState({registerMessage: 'Welcome to Keep-mini! Log in below and start making todos', passwordMessage: '', emailMessage: ''})
   }
 
   render() {
+    const { emailMessage, passwordMessage, registerMessage, selectedAvatar} = this.state
+
     return (
       <Form onSubmit={this.registerUser}>
         <Title>Register account</Title>
@@ -73,15 +89,17 @@ class RegisterForm extends React.Component {
           placeholder="password"
         />
         <AvatarWrapper>
-          <Avatar selected={this.state.selectedAvatar === "/avatar1.svg"} src="/avatar1.svg"
+          <Avatar selected={selectedAvatar === "/avatar1.svg"} src="/avatar1.svg"
                   onClick={() => this.setState({ selectedAvatar: '/avatar1.svg' })} alt="Avatar"/>
-          <Avatar selected={this.state.selectedAvatar === "/avatar2.svg"} src="/avatar2.svg"
+          <Avatar selected={selectedAvatar === "/avatar2.svg"} src="/avatar2.svg"
                   onClick={() => this.setState({ selectedAvatar: '/avatar2.svg' })} alt="Avatar"/>
-          <Avatar selected={this.state.selectedAvatar === "/avatar3.svg"} src="/avatar3.svg"
+          <Avatar selected={selectedAvatar === "/avatar3.svg"} src="/avatar3.svg"
                   onClick={() => this.setState({ selectedAvatar: '/avatar3.svg' })} alt="Avatar"/>
         <RegisterButton type="submit">Register</RegisterButton>
         </AvatarWrapper>
-        <Message>{this.state.registerMessage}</Message>
+        <Message>{registerMessage}</Message>
+        <ErrorMessage>{emailMessage}</ErrorMessage>
+        <ErrorMessage>{passwordMessage}</ErrorMessage>
       </Form>
     )
   }
