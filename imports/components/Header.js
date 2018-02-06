@@ -1,6 +1,9 @@
 import React from 'react'
 import { graphql } from 'react-apollo'
+import gql from 'graphql-tag';
 import styled from 'styled-components';
+import { Avatar } from "./styled/Avatar.styled";
+
 
 const LogOutButton = styled.div`
    transition: color 200ms;
@@ -10,7 +13,12 @@ const LogOutButton = styled.div`
   }
 `
 
-const Header = () => {
+const UserMenu = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const Header = ({user, loading}) => {
   const logOut = () => Meteor.logout((err) => window.location.href = '/')
   return (
     <div className="header">
@@ -20,11 +28,30 @@ const Header = () => {
         <span className="app-name">Keep-Mini</span>
       </div>
       {
-        Meteor.userId() &&
-        <LogOutButton onClick={logOut}>Sign out</LogOutButton>
+        Meteor.userId() && !loading &&
+        <UserMenu>
+          <LogOutButton onClick={logOut}>Sign out</LogOutButton>
+          <Avatar src={user.avatar} alt="avatar"/>
+        </UserMenu>
       }
     </div>
   )
 }
 
-export default Header
+const userQuery = gql`
+    query User($_id: String!) {
+        user(_id: $_id) {
+            avatar
+        }
+    }
+`
+
+export default graphql(
+  userQuery, {
+    props: ({ data }) => ({ ...data }),
+    options: (props) => ({
+      variables: {
+        _id: Meteor.userId()
+      }
+    })}
+)(Header)
