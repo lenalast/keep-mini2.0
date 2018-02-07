@@ -18,3 +18,6 @@ background colors on the list cards (like Google Keep have) and avatars to choos
 * Apollo
 * GraphQL
 * Styled Components
+
+#### Set up the project
+1. Install Meteor, [Click here](https://www.meteor.com/install)
