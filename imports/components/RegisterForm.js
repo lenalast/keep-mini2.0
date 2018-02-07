@@ -20,9 +20,14 @@ const RegisterButton = styled.button`
 const AvatarWrapper = styled.div`
    display: flex;
    justify-content: space-between;
-   max-width: 416px;
-   margin-top: 16px;
-   margin-bottom: 50px;
+   max-width: 240px;
+   margin: 16px 0;
+   
+   @media all and (max-width: 600px) {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 200px;
+   }
 `
 
 const Message = styled.div`
@@ -32,6 +37,7 @@ const Message = styled.div`
 const ErrorMessage = styled.div`
   font-family: "Roboto Slab", sans-serif;
   font-size: 12px;
+  margin-top: 16px;
   color: red;
 `
 
@@ -49,10 +55,10 @@ class RegisterForm extends React.Component {
 
     const { selectedAvatar } = this.state;
 
-    if(this.email.value === ''){
-      return this.setState({emailMessage: 'Please, fill in your email'})
+    if ( this.email.value === '' ) {
+      return this.setState({ emailMessage: 'Please, fill in your email' })
     }
-    if(this.password.value === '') {
+    if ( this.password.value === '' ) {
       return this.setState({ passwordMessage: 'Please, fill in your password' })
     }
 
@@ -67,39 +73,45 @@ class RegisterForm extends React.Component {
     )
     this.email.value = ''
     this.password.value = ''
-    this.setState({registerMessage: 'Welcome to Keep-mini! Log in below and start making todos', passwordMessage: '', emailMessage: ''})
+    this.setState({
+      registerMessage: 'Welcome to Keep-mini! Log in below and start making todos',
+      passwordMessage: '',
+      emailMessage: ''
+    })
   }
 
   render() {
-    const { emailMessage, passwordMessage, registerMessage, selectedAvatar} = this.state
+    const { emailMessage, passwordMessage, registerMessage, selectedAvatar } = this.state
 
     return (
       <Form onSubmit={this.registerUser}>
-        <Title>Register account</Title>
-        <Input
-          innerRef={input => this.email = input}
-          type="email"
-          name="email"
-          placeholder="email"
-        />
-        <Input
-          innerRef={input => this.password = input}
-          type="password"
-          name="password"
-          placeholder="password"
-        />
-        <AvatarWrapper>
-          <Avatar selected={selectedAvatar === "/avatar1.svg"} src="/avatar1.svg"
-                  onClick={() => this.setState({ selectedAvatar: '/avatar1.svg' })} alt="Avatar"/>
-          <Avatar selected={selectedAvatar === "/avatar2.svg"} src="/avatar2.svg"
-                  onClick={() => this.setState({ selectedAvatar: '/avatar2.svg' })} alt="Avatar"/>
-          <Avatar selected={selectedAvatar === "/avatar3.svg"} src="/avatar3.svg"
-                  onClick={() => this.setState({ selectedAvatar: '/avatar3.svg' })} alt="Avatar"/>
-        <RegisterButton type="submit">Register</RegisterButton>
-        </AvatarWrapper>
-        <Message>{registerMessage}</Message>
-        <ErrorMessage>{emailMessage}</ErrorMessage>
-        <ErrorMessage>{passwordMessage}</ErrorMessage>
+        <div>
+          <Title>Register account</Title>
+          <Input
+            innerRef={input => this.email = input}
+            type="email"
+            name="email"
+            placeholder="email"
+          />
+          <Input
+            innerRef={input => this.password = input}
+            type="password"
+            name="password"
+            placeholder="password"
+          />
+          <AvatarWrapper>
+            <Avatar selected={selectedAvatar === "/avatar1.svg"} src="/avatar1.svg"
+                    onClick={() => this.setState({ selectedAvatar: '/avatar1.svg' })} alt="Avatar"/>
+            <Avatar selected={selectedAvatar === "/avatar2.svg"} src="/avatar2.svg"
+                    onClick={() => this.setState({ selectedAvatar: '/avatar2.svg' })} alt="Avatar"/>
+            <Avatar selected={selectedAvatar === "/avatar3.svg"} src="/avatar3.svg"
+                    onClick={() => this.setState({ selectedAvatar: '/avatar3.svg' })} alt="Avatar"/>
+          </AvatarWrapper>
+            <RegisterButton type="submit">Register</RegisterButton>
+          <Message>{registerMessage}</Message>
+          <ErrorMessage>{emailMessage}</ErrorMessage>
+          <ErrorMessage>{passwordMessage}</ErrorMessage>
+        </div>
       </Form>
     )
   }
