@@ -8,6 +8,7 @@ import ColorPicker from './ColorPicker'
 
 const TodoListsGrid = styled.div`
   display: flex;
+  justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
   max-width: 948px; // fits 3 lists
@@ -178,10 +179,7 @@ class TodoListsPage extends Component {
 
     return (
       <div>
-        {/* input create todo*/}
-
         <CreateTodoListForm />
-
         <TodoListsGrid>
           {
             todoLists.map(list =>
