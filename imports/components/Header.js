@@ -4,6 +4,29 @@ import gql from 'graphql-tag';
 import styled from 'styled-components';
 import { Avatar } from "./styled/Avatar.styled";
 
+const HeaderWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 0 24px;
+  background-color: #FFBB00;
+  font-family: 'Product Sans',Arial,sans-serif;
+`
+
+const AppNameWrapper = styled.div`
+  display: flex;
+`
+
+const AppName = styled.span`
+  font-size: 22px;
+  margin-left: 24px;
+`
+
+const MobileMenuIcon = styled.img`
+  width: 30px;
+  height: 24px;
+`
 
 const LogOutButton = styled.div`
    transition: color 200ms;
@@ -20,13 +43,16 @@ const UserMenu = styled.div`
 
 const Header = ({user, loading}) => {
   const logOut = () => Meteor.logout((err) => window.location.href = '/')
+
   return (
-    <div className="header">
-      <div className="app-name-wrapper">
-        <img className="mobile-menu"
-             src="https://cdn2.iconfinder.com/data/icons/most-useful-icons-4/50/HAMBURGER_MENU-512.png" alt="menu"/>
-        <span className="app-name">Keep-Mini</span>
-      </div>
+    <HeaderWrapper>
+      <AppNameWrapper>
+        <MobileMenuIcon
+             src="https://cdn2.iconfinder.com/data/icons/most-useful-icons-4/50/HAMBURGER_MENU-512.png"
+             alt="menu"
+        />
+        <AppName>Keep-Mini</AppName>
+      </AppNameWrapper>
       {
         Meteor.userId() && !loading &&
         <UserMenu>
@@ -34,7 +60,7 @@ const Header = ({user, loading}) => {
           <Avatar src={user.avatar} alt="avatar"/>
         </UserMenu>
       }
-    </div>
+    </HeaderWrapper>
   )
 }
 
