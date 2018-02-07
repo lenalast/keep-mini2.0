@@ -14,7 +14,20 @@ const LogInButton = styled.button`
               0 1px 5px 0 rgba(0,0,0,0.12);
 `
 
+const WarningMessage = styled.div`
+  padding-top: 32px;
+  font-family: "Roboto Slab", sans-serif;
+  font-size: 14px;
+  text-shadow: rgba(0,0,0,0.7) 0 0.3px;
+  color: #d7a02a;
+`
+
 class LoginForm extends React.Component {
+
+  state = {
+    warningMessage: ''
+  }
+
   signInUser = (e) => {
     e.preventDefault()
     console.log('sign in', Accounts)
@@ -25,6 +38,7 @@ class LoginForm extends React.Component {
       error => {
         if ( error ) {
           console.error(error)
+          return this.setState({warningMessage: 'Please, check your spelling or register as a new user'})
         }
         else {
           window.location.href = '/'
@@ -34,6 +48,8 @@ class LoginForm extends React.Component {
   }
 
   render() {
+    const { warningMessage } = this.state
+
     return (
       <Form onSubmit={this.signInUser}>
         <Title>Log in</Title>
@@ -50,6 +66,7 @@ class LoginForm extends React.Component {
           placeholder="password"
         />
         <LogInButton type="submit">Log in</LogInButton>
+        <WarningMessage>{warningMessage}</WarningMessage>
       </Form>
     )
   }
