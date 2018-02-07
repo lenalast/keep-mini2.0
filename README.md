@@ -17,6 +17,7 @@ background colors on the list cards (like Google Keep have) and avatars to choos
 * Meteor
 * Apollo
 * GraphQL
+* React
 * Styled Components
 
 #### Set up the project
