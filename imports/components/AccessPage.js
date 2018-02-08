@@ -1,12 +1,7 @@
 import React from 'react'
-import styled from 'styled-components'
+import { AccessLayout } from './styled/AccessPage.styled';
 import LoginForm from "./LoginForm"
 import RegisterForm from "./RegisterForm"
-
-const AccessLayout = styled.div`
-  display: flex;
-  justify-content: center;
-`
 
 const AccessPage = () => (
   <AccessLayout>

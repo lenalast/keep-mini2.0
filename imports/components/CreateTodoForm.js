@@ -1,19 +1,7 @@
 import React from 'react'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
-import styled from 'styled-components';
-
-const Icon = styled.span`
-  color: #747474;
-  font-size: 20px;
-`
-const TodoInput = styled.input`
-  font-family: Roboto, sans-serif;
-  font-size: 13px;
-  padding: 8px 0;
-  margin-left: 8px;
-  background-color: transparent;
-`
+import { Icon, TodoInput } from './styled/CreateTodoForm.styled';
 
 class CreateTodoForm extends React.Component {
   createTodo = (e) => {
