@@ -33,11 +33,6 @@ export const LogOutButton = styled.div`
   }
 `
 
-export const UserMenu = styled.div`
-  display: flex;
-  align-items: center;
-`
-
 const SlideIn = keyframes`
  from {
     -webkit-transform: translate3d(-100%, 0, 0);
@@ -66,4 +61,9 @@ export const SideBar = styled.div`
   border-right: 1px solid rgba(117,117,117,0.5);
   animation: ${SlideIn} 500ms;
   z-index: 1;
+`
+
+export const UserMenuWrapper = styled.div`
+  display: flex;
+  align-items: center;
 `
