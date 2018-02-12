@@ -10,6 +10,7 @@ This is a school project and my idea was to recreate Google Keep but in a smalle
 The functionalities are basic to make a list of to-dos. I also have some more fun functionalities like the different 
 background colors on the list cards (like Google Keep has) and avatars to choose from, which has a Pokémon theme. 
 
+Go and test it out [here](http://207.154.198.252/)
 
 ![Keep-Mini screen shot](/public/keep-mini.png)
 
