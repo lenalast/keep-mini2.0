@@ -28,6 +28,7 @@ export const AvatarWrapper = styled.div`
 `
 
 export const Message = styled.div`
+  padding-top: 16px;
   font-family: "Roboto Slab", sans-serif;
   color: green;
 `
